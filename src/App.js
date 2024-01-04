@@ -1,5 +1,6 @@
 import './App.css';
-import {useState} from "react";
+import words from './words.json';
+import {useEffect, useState} from "react";
 
 
 function Grid({value}) {
@@ -134,13 +135,15 @@ function KeyBoard({onPlay, handleCancel, handleEnter}) {
 }
 
 function Game() {
-
+    const [secretCode, setSecretCode] = useState('');
+    useEffect(() => {
+        setSecretCode(getSecretCode(words).toUpperCase()); // This code only run once on initial render
+    }, []);
     const [history, setHistory] = useState(Array(30).fill(null));
     const [trial, setTrial] = useState(0);
     const currentTrial = history.slice(trial, trial + 5);
     const nonNullElementsCount = currentTrial.filter(element => element !== null).length;
     const isReady = nonNullElementsCount === 5 ? true : false; // If the current trial has non-null value, return false
-    console.log(isReady);
 
     function handleKey(letter) {
         // Click the letter
@@ -156,24 +159,27 @@ function Game() {
                 newHistory.splice(trial, 5, ...newCurrentTrial);
                 setHistory(newHistory);
             }
-            console.log(history);
         }
     }
 
     function handleEnter() {
         const currentAnswer = currentTrial.join('')
         if (isReady) {
-            if (currentAnswer.toUpperCase() === "HAPPY") {
+            if (currentAnswer === secretCode) {
                 // If the player win the game
                 console.log("You Win!");
                 return;
             }
-            setTrial(trial + 5);
 
             if (trial === 25) {
                 // If the player lose the game (they have tried all chances)
                 console.log("You lose!")
+                console.log("The answer is " + secretCode);
             }
+            // Return the result of this trial
+            const trialResult = getTrialResult(secretCode, currentAnswer);
+            setTrial(trial + 5);
+            console.log(trialResult);
         }
 
     }
@@ -203,8 +209,6 @@ function Game() {
     return (
         <>
             <header>
-                <div>Hey, how's it going? My friend~</div>
-                <div>Do you want to try?</div>
                 <div>Wordle Game</div>
             </header>
 
@@ -221,3 +225,29 @@ function Game() {
 }
 
 export default Game;
+
+function getSecretCode(words) {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    const secretCode = words[randomIndex];
+    return secretCode;
+}
+
+function getTrialResult(secretCode, currentAnswer) {
+    // Get the result of each trial,
+    // grey represent the choice is not included in the secret code
+    // green represent the choice is in the correct position of the secret code
+    // yellow represent the choice is in the secret code but not in the correct position
+    // console.log(secretCode);
+    // console.log(currentAnswer);
+    let trialResult = Array(currentAnswer.length).fill(null);
+    for (let i = 0; i < currentAnswer.length; i++) {
+        if (!secretCode.includes(currentAnswer[i])) {
+            trialResult[i] = "grey";
+        } else if (secretCode[i] === currentAnswer[i]) {
+            trialResult[i] = "green";
+        } else {
+            trialResult[i] = "yellow";
+        }
+    }
+    return trialResult;
+}
