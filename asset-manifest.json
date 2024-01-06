@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.d8276550.css",
-    "main.js": "/static/js/main.e6b27db4.js",
-    "static/js/787.502d9294.chunk.js": "/static/js/787.502d9294.chunk.js",
-    "index.html": "/index.html",
-    "main.d8276550.css.map": "/static/css/main.d8276550.css.map",
-    "main.e6b27db4.js.map": "/static/js/main.e6b27db4.js.map",
-    "787.502d9294.chunk.js.map": "/static/js/787.502d9294.chunk.js.map"
+    "main.css": "/Wordle-Game/static/css/main.d8276550.css",
+    "main.js": "/Wordle-Game/static/js/main.4621a546.js",
+    "static/js/787.502d9294.chunk.js": "/Wordle-Game/static/js/787.502d9294.chunk.js",
+    "index.html": "/Wordle-Game/index.html",
+    "main.d8276550.css.map": "/Wordle-Game/static/css/main.d8276550.css.map",
+    "main.4621a546.js.map": "/Wordle-Game/static/js/main.4621a546.js.map",
+    "787.502d9294.chunk.js.map": "/Wordle-Game/static/js/787.502d9294.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d8276550.css",
-    "static/js/main.e6b27db4.js"
+    "static/js/main.4621a546.js"
   ]
 }
