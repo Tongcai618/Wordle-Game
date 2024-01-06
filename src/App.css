@@ -1,109 +1,116 @@
-/* General styling for the game */
-.game {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* General styles */
+body {
     font-family: Arial, sans-serif;
-}
-
-header {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-}
-
-/* Styling for the game board */
-.game-board {
-    margin: 20px;
-}
-
-/* Styling for each square button */
-.grid {
-    background: #fff;
-    border: 2px solid #999;
-    float: left;
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 48px;
-    height: 48px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
     text-align: center;
-    width: 48px;
-    cursor: pointer;
+}
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #427070;
+    color: white;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+}
+
+
+.game {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+/* Board and Grid styles */
+
+.board-row {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.grid {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 2px;
+    transition: background-color 0.3s;
+}
+
+.grid.grey {
+    background-color: #cccccc; /* Grey for incorrect letters */
+}
+
+.grid.yellow {
+    background-color: #ffeb3b; /* Yellow for letters in the word but in wrong position */
+}
+
+.grid.green {
+    background-color: #4caf50; /* Green for correct letters in correct position */
+}
+
+
+/* Keyboard styles */
+
+.key-row {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
 }
 
 .key {
-    background: #fff;
-    border: 2px solid #999;
-    float: left;
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 48px;
-    height: 48px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 48px;
+    padding: 15px 15px;
+    margin: 2px;
+    border: none;
+    background-color: #eeecec;
+    font-size: 18px;
     cursor: pointer;
 }
 
-.key enter-key {
-    background: #fff;
-    border: 2px solid #999;
-    float: left;
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 48px;
-    height: 48px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 80px;
-    cursor: pointer;
+.key.grey {
+    background-color: #cccccc; /* Grey for incorrect letters */
 }
 
-.key cancel-key {
-    background: #fff;
-    border: 2px solid #999;
-    float: left;
-    font-size: 28px;
-    font-weight: bold;
-    line-height: 48px;
-    height: 48px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    width: 80px;
-    cursor: pointer;
+.key.yellow {
+    background-color: #ffeb3b; /* Yellow for letters in the word but in wrong position */
 }
 
-/* Clear floats after the squares */
-.key-row:after {
-    align-items: center;
-    clear: both;
-    content: "";
-    display: table;
+.key.green {
+    background-color: #4caf50; /* Green for correct letters in correct position */
 }
 
-/* Styling for the status display */
-.status {
-    margin-bottom: 10px;
+.key:hover {
+    background-color: #ccc;
 }
 
-/* Styling for the game info section */
-.game-info {
-    margin-left: 20px;
+.enter-key, .cancel-key {
+    flex-grow: 0.2;
+    background-color: #111;
+    color: white;
 }
 
-/* Additional styling for lists, if used in game info */
-.game-info ol {
-    padding-left: 30px;
-}
+/* Add specific styles for different key types if needed */
