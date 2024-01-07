@@ -22,11 +22,14 @@ const Header = () => {
 
 
 function Grid({value, color}) {
+    // Get the class name of the grid
     let gridClass = `grid ${color}`;
+
     return (
         <div className={gridClass}>{value}</div>
     );
 }
+
 
 function Key({letter, onKeyClick, color}) {
     let keyClass = `key ${color}`
@@ -49,53 +52,29 @@ function CancelKey({onCancelClick}) {
 
 
 function Board({squares, trialResults}) {
+    const numberOfRows = 6;
+    const gridsPerRow = 5;
+
+    let rows = [];
+
+    for (let i = 0; i < numberOfRows; i++) {
+        let row = [];
+        for (let j = 0; j < gridsPerRow; j++) {
+            const index = i * gridsPerRow + j;
+            row.push(
+                <Grid
+                    key={index}
+                    value={squares[index]}
+                    color={trialResults[index]}
+                />
+            );
+
+        }
+        rows.push(<div key={i} className={"board-row"}>{row}</div>)
+    }
 
     return (
-        <>
-            <div className={"board-row"}>
-                <Grid value={squares[0]} color={trialResults[0]}/>
-                <Grid value={squares[1]} color={trialResults[1]}/>
-                <Grid value={squares[2]} color={trialResults[2]}/>
-                <Grid value={squares[3]} color={trialResults[3]}/>
-                <Grid value={squares[4]} color={trialResults[4]}/>
-            </div>
-            <div className={"board-row"}>
-                <Grid value={squares[5]} color={trialResults[5]}/>
-                <Grid value={squares[6]} color={trialResults[6]}/>
-                <Grid value={squares[7]} color={trialResults[7]}/>
-                <Grid value={squares[8]} color={trialResults[8]}/>
-                <Grid value={squares[9]} color={trialResults[9]}/>
-            </div>
-            <div className={"board-row"}>
-                <Grid value={squares[10]} color={trialResults[10]}/>
-                <Grid value={squares[11]} color={trialResults[11]}/>
-                <Grid value={squares[12]} color={trialResults[12]}/>
-                <Grid value={squares[13]} color={trialResults[13]}/>
-                <Grid value={squares[14]} color={trialResults[14]}/>
-            </div>
-            <div className={"board-row"}>
-                <Grid value={squares[15]} color={trialResults[15]}/>
-                <Grid value={squares[16]} color={trialResults[16]}/>
-                <Grid value={squares[17]} color={trialResults[17]}/>
-                <Grid value={squares[18]} color={trialResults[18]}/>
-                <Grid value={squares[19]} color={trialResults[19]}/>
-            </div>
-            <div className={"board-row"}>
-                <Grid value={squares[20]} color={trialResults[20]}/>
-                <Grid value={squares[21]} color={trialResults[21]}/>
-                <Grid value={squares[22]} color={trialResults[22]}/>
-                <Grid value={squares[23]} color={trialResults[23]}/>
-                <Grid value={squares[24]} color={trialResults[24]}/>
-            </div>
-            <div className={"board-row"}>
-                <Grid value={squares[25]} color={trialResults[25]}/>
-                <Grid value={squares[26]} color={trialResults[26]}/>
-                <Grid value={squares[27]} color={trialResults[27]}/>
-                <Grid value={squares[28]} color={trialResults[28]}/>
-                <Grid value={squares[29]} color={trialResults[29]}/>
-            </div>
-        </>
-
+        <>{rows}</>
     );
 }
 
@@ -159,7 +138,6 @@ function KeyBoard({onPlay, handleCancel, handleEnter, colors}) {
 
 function Game() {
     const wordList = hardWords;
-    console.log(wordList);
     const [secretCode, setSecretCode] = useState('');
     useEffect(() => {
         setSecretCode(getSecretCode(simpleWords).toUpperCase());
@@ -241,24 +219,21 @@ function Game() {
             if (wordList.includes(currentAnswer.toLowerCase())) {
                 // Return the result of this trial
                 const trialResult = getTrialResult(secretCode, currentAnswer);
-                console.log(trialResult);
                 // Update the result of this trial to the trialResults list
                 const newTrialResults = [...trialResults];
                 newTrialResults.splice(trial, 5, ...trialResult);
                 setTrialResults(newTrialResults);
-                console.log(trialResults);
                 // Set the colors of the keyboard
                 const newColors = {...colors};
                 for (let i = 0; i < currentAnswer.length; i++) {
                     newColors[currentAnswer[i]] = trialResult[i];
                 }
                 setColors(newColors);
-                console.log(colors);
                 // Move to the next trial
                 setTrial(trial + 5);
             }
-        }
 
+        }
     }
 
     function handleCancel() {
@@ -283,6 +258,7 @@ function Game() {
         setHistory(newHistory);
     }
 
+    // This function allows users to use their keyboard to input their answer
     const handleKeyPress = (event) => {
         if (/[a-zA-Z]/.test(event.key) && event.key.length === 1) {
             handleKey(event.key.toUpperCase());
@@ -345,3 +321,4 @@ function getTrialResult(secretCode, currentAnswer) {
     }
     return trialResult;
 }
+
